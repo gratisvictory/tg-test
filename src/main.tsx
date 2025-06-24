@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 interface User {
   id: string;
   name: string;
-  completedTasks: number;
 }
 
 // Типы для Telegram WebApp API
@@ -26,7 +25,6 @@ const ProfileView: React.FC = () => {
   const [user, setUser] = useState<User>({
     id: '',
     name: '',
-    completedTasks: 0
   });
 
   useEffect(() => {
@@ -38,13 +36,9 @@ const ProfileView: React.FC = () => {
           return;
         }
 
-        const response = await fetch(`https://refactored-fishstick-jj7qgwww9x94cq4r6-8000.app.github.dev/api/main/${tg_user.id}`);
-        const data = await response.json();
-
         setUser({
           id: tg_user.id,
           name: tg_user.first_name,
-          completedTasks: data.completedTasks
         });
       } catch (error) {
         console.log(error);
@@ -60,7 +54,6 @@ const ProfileView: React.FC = () => {
       <div className="profile-info">
         <p><strong>ID:</strong> {user.id}</p>
         <p><strong>Имя:</strong> {user.name}</p>
-        <p><strong>Выполнено задач:</strong> {user.completedTasks}</p>
       </div>
 
       <style>{`
